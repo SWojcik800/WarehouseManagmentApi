@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using WarehouseManagment.Application;
+using WarehouseManagment.Core;
 using WarehouseManagment.Infrastructure;
 
 namespace WarehouseManagment.Api
@@ -11,7 +12,8 @@ namespace WarehouseManagment.Api
 
             System.Reflection.Assembly[] IoCAssemblies = {
                 typeof(IApplicationAssemblyMarker).Assembly,
-                typeof(IInfrastructureAssemblyMarker).Assembly
+                typeof(IInfrastructureAssemblyMarker).Assembly,
+                typeof(ICoreAssemblyMarker).Assembly,
             };
 
 

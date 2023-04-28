@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using WarehouseManagment.Api;
 using WarehouseManagment.Infrastructure.Data;
-using WarehouseManagment.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
