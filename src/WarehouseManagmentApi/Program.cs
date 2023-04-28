@@ -12,7 +12,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(x => x.
 
 // Add services to the container.
 builder.Services.AddDbContext<WarehouseContext>(options =>
-    options.UseNpgsql(configuration.GetConnectionString("WarehouseDatabase")));
+    options.UseSqlServer(configuration.GetConnectionString("WarehouseDatabase")));
 
 
 

@@ -14,7 +14,7 @@ namespace WarehouseManagment.Infrastructure.Data
                 .Build();
 
             DbContextOptionsBuilder<WarehouseContext> builder = new DbContextOptionsBuilder<WarehouseContext>();
-            builder.UseNpgsql(configuration.GetConnectionString("WarehouseDatabase"));
+            builder.UseSqlServer(configuration.GetConnectionString("WarehouseDatabase"));
 
             return new WarehouseContext(builder.Options);
         }

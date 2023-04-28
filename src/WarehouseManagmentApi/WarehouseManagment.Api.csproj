@@ -7,13 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.0.0" />
+    <PackageReference Include="Autofac" Version="7.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WarehouseManagment.Web\WarehouseManagment.Web.csproj" />
+    <ProjectReference Include="..\WarehouseManagment.Application\WarehouseManagment.Application.csproj" />
+    <ProjectReference Include="..\WarehouseManagment.Core\WarehouseManagment.Core.csproj" />
+    <ProjectReference Include="..\WarehouseManagment.Infrastructure\WarehouseManagment.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
