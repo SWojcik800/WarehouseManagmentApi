@@ -25,7 +25,11 @@ namespace WarehouseManagment.Api.Shipment
         [HttpPost("RegisterIncomingShipment")]
         public async Task RegisterIncomingShipment(CreateShipmentDto createShipmentDto)
             => await _shipmentService.RegisterIncomingShipment(createShipmentDto);
-        
+
+        [HttpPost("AcceptIncomingShipment")]
+        public async Task AcceptIncomingShipment(long shipmentId)
+            => await _shipmentService.AcceptIncomingShipment(shipmentId);
+
         [HttpPost("IssueShipment")]
         public async Task IssueShipment(long shipmentId, string shipmentIssuedTo)
             => await _shipmentService.IssueShipment(shipmentId, shipmentIssuedTo);

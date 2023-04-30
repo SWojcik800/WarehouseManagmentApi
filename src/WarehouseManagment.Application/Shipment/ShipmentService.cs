@@ -39,6 +39,13 @@ namespace WarehouseManagment.Application.Shipment
             await _shipmentRepository.Save(incomingShipment);
         }
 
+        public async Task AcceptIncomingShipment(long shipmentId)
+        {
+            var shipment = await _shipmentRepository.GetById(shipmentId);
+            var acceptedShipment = shipment.Accept();
+
+            await _shipmentRepository.Save(acceptedShipment);
+        }
         public async Task IssueShipment(long shipmentId, string shipmentIssuedTo)
         {
             var shipment = await _shipmentRepository.GetById(shipmentId);
