@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using Mapster;
+using MapsterMapper;
 using WarehouseManagment.Application;
 using WarehouseManagment.Core;
+using WarehouseManagment.Core.Shipment;
 using WarehouseManagment.Infrastructure;
 
 namespace WarehouseManagment.Api
@@ -17,7 +20,7 @@ namespace WarehouseManagment.Api
             };
 
 
-            builder.RegisterAssemblyModules(IoCAssemblies);
+            builder.RegisterAssemblyModules(IoCAssemblies);            
         }
     }
 }

@@ -1,5 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using WarehouseManagment.Api;
 using WarehouseManagment.Infrastructure.Data;
@@ -13,8 +15,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(x => x.
 // Add services to the container.
 builder.Services.AddDbContext<WarehouseContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("WarehouseDatabase")));
-
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

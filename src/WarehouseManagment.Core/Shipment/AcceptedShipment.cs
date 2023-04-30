@@ -2,7 +2,7 @@
 {
     public sealed class AcceptedShipment
     {
-        public AcceptedShipment(long id, IReadOnlyList<ShipmentProduct> products, DateTime shipmentArrived, DateTime acceptedDate)
+        internal AcceptedShipment(long id, IReadOnlyList<ShipmentProduct> products, DateTime shipmentArrived, DateTime acceptedDate)
         {
             Id = id;
             Products = products;

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WarehouseManagment.Application.Shipment;
+using WarehouseManagment.Application.Shipment.Dtos;
 
 namespace WarehouseManagment.Api.Shipment
 {
@@ -16,10 +16,18 @@ namespace WarehouseManagment.Api.Shipment
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCurrentShipments()
+        public async Task<IActionResult> Get()
         {
             var dtos = await _shipmentService.GetCurrentShipments();
             return Ok(dtos);
         }
+
+        [HttpPost("RegisterIncomingShipment")]
+        public async Task RegisterIncomingShipment(CreateShipmentDto createShipmentDto)
+            => await _shipmentService.RegisterIncomingShipment(createShipmentDto);
+        
+        [HttpPost("IssueShipment")]
+        public async Task IssueShipment(long shipmentId, string shipmentIssuedTo)
+            => await _shipmentService.IssueShipment(shipmentId, shipmentIssuedTo);
     }
 }

@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using Mapster;
+using MapsterMapper;
+using WarehouseManagment.Core.Shipment;
 
 namespace WarehouseManagment.Application
 {
@@ -8,6 +11,16 @@ namespace WarehouseManagment.Application
         {
             builder.RegisterAssemblyTypes(typeof(IApplicationAssemblyMarker).Assembly)
                 .AsImplementedInterfaces();
+
+            var config = new TypeAdapterConfig();
+
+            builder.RegisterInstance(config)
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<ServiceMapper>()
+                .As<IMapper>();
         }
     }
 }

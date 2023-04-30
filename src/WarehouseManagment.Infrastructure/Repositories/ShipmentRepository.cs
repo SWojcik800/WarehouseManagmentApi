@@ -1,86 +1,81 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+using WarehouseManagment.Core.Exceptions;
 using WarehouseManagment.Core.Shipment;
 using WarehouseManagment.Infrastructure.Data;
-using WarehouseManagment.Infrastructure.Entities;
 
 namespace WarehouseManagment.Infrastructure.Repositories
 {
     public sealed class ShipmentRepository : IShipmentRepository
     {
         private readonly WarehouseContext _context;
+        private readonly IMapper _mapper;
 
-        public ShipmentRepository(WarehouseContext context)
+        public ShipmentRepository(WarehouseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Core.Shipment.Shipment>> GetAll()
+        public async Task<List<ShipmentDomain>> GetAll()
         {
-            return await _context.Shipments
+
+            var entities =  await _context.Shipments
                 .Include(x => x.Products)
-                .Where(x => !x.AcceptedDate.HasValue)
-                .Select(x => new Core.Shipment.Shipment(x.Id, 
-                    x.Products.Select(p => new ShipmentProduct(p.Id, p.Name, p.Description, p.ManufactureraName, p.Count))
-                    .ToList(),
-                 x.ShipmentArrived))
+                .Where(x => !x.AcceptedDate.HasValue && !x.ShipmentIssued.HasValue)
                 .ToListAsync();
+
+            var mapped = _mapper.Map<List<ShipmentDomain>>(entities);
+
+            return mapped;
         }
 
         public async Task<List<AcceptedShipment>> GetAccepted()
         {
-            return await _context.Shipments
+            var entities = await _context.Shipments
                 .Include(x => x.Products)
-                .Where(x => x.AcceptedDate.HasValue)
-                .Select(x => new AcceptedShipment(x.Id,
-                    x.Products.Select(p => new ShipmentProduct(p.Id, p.Name, p.Description, p.ManufactureraName, p.Count))
-                        .ToList(),
-                    x.ShipmentArrived,
-                    x.AcceptedDate.Value)
-                )
+                .Where(x => x.AcceptedDate.HasValue)                
                 .ToListAsync();
+
+            var mapped = _mapper.Map<List<AcceptedShipment>>(entities);
+
+            return mapped;
         }
 
-        public Task<List<Core.Shipment.Shipment>> GetById()
+        public async Task<ShipmentDomain> GetById(long id)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Shipments
+                .AsNoTracking()
+                .Include(x => x.Products)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entity is null)
+                throw new NotFoundException($"Shipment with id: {id} not found");
+
+            var mapped = _mapper.Map<ShipmentDomain>(entity);
+            return mapped;
         }
 
-        public async Task Save(Core.Shipment.Shipment shipment)
+        public async Task Save(Core.Shipment.ShipmentDomain shipment)
         {
-            _context.Shipments.Add(
-                new Entities.Shipment() 
-                { Id = shipment.Id, Products = shipment.Products.Select(x => new Product()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Description = x.Description,
-                        ManufactureraName = x.ManufactureraName,
-                        Count = x.Count
-                    }).ToList(), ShipmentArrived = DateTime.Now}
-            );
+            var entity = _mapper.Map<Entities.Shipment>(shipment);
+            _context.Shipments.Add(entity);
 
             await _context.SaveChangesAsync();
         }
 
         public async Task Save(AcceptedShipment acceptedShipment)
         {
-            _context.Shipments.Add(
-                new Entities.Shipment()
-                {
-                    Id = acceptedShipment.Id,
-                    Products = acceptedShipment.Products.Select(x => new Product()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Description = x.Description,
-                        ManufactureraName = x.ManufactureraName,
-                        Count = x.Count
-                    }).ToList(),
-                    ShipmentArrived = DateTime.Now,
-                    AcceptedDate = DateTime.Now
-                }
-            );
+            var entity = _mapper.Map<Entities.Shipment>(acceptedShipment);
+            _context.Shipments.Update(entity);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Save(IssuedShipment issuedShipment)
+        {
+            var entity = _mapper.Map<Entities.Shipment>(issuedShipment);
+            _context.Shipments.Update(entity);
 
             await _context.SaveChangesAsync();
         }
