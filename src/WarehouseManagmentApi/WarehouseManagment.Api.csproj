@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WarehouseManagment.Infrastructure\WarehouseManagment.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shipment\" />
+  </ItemGroup>
+
 </Project>

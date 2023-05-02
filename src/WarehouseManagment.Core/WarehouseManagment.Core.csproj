@@ -10,4 +10,10 @@
     <PackageReference Include="Autofac" Version="7.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Manufacturers\" />
+    <Folder Include="Products\" />
+    <Folder Include="Shipments\" />
+  </ItemGroup>
+
 </Project>

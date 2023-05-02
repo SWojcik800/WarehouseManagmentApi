@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WarehouseManagment.Infrastructure.Entities;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
-    public class WarehouseContext : DbContext
+    public sealed class WarehouseContext : DbContext
     {
         public WarehouseContext(DbContextOptions<WarehouseContext> options)
             : base(options)
@@ -15,8 +14,6 @@ namespace WarehouseManagment.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IInfrastructureAssemblyMarker).Assembly);
         }
 
-        internal DbSet<Shipment> Shipments { get; set; }
-        internal DbSet<Product> Products { get; set; }
 
     }
 }

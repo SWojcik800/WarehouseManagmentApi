@@ -16,4 +16,9 @@
     <ProjectReference Include="..\WarehouseManagment.Core\WarehouseManagment.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Products\" />
+    <Folder Include="Shipment\" />
+  </ItemGroup>
+
 </Project>

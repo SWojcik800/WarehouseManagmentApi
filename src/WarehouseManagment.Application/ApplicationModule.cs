@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Mapster;
 using MapsterMapper;
-using WarehouseManagment.Core.Shipment;
 
 namespace WarehouseManagment.Application
 {

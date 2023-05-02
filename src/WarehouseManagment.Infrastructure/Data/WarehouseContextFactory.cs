@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
-    public class WarehouseContextFactory : IDesignTimeDbContextFactory<WarehouseContext>
+    public sealed class WarehouseContextFactory : IDesignTimeDbContextFactory<WarehouseContext>
     {
         public WarehouseContext CreateDbContext(string[] args)
         {

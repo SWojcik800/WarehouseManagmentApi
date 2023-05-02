@@ -13,6 +13,9 @@ namespace WarehouseManagment.Infrastructure
 
             builder.RegisterAssemblyTypes(typeof(IInfrastructureAssemblyMarker).Assembly)
                 .AsImplementedInterfaces();
+
+            builder.RegisterType<WarehouseContext>()
+                .InstancePerRequest();
         }
     }
 }
