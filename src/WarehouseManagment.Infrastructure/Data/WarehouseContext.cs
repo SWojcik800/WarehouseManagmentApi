@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WarehouseManagment.Core.Products;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
@@ -14,6 +15,7 @@ namespace WarehouseManagment.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IInfrastructureAssemblyMarker).Assembly);
         }
 
+        public DbSet<Product> Products { get; set; }
 
     }
 }

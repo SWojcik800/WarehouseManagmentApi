@@ -12,6 +12,7 @@ namespace WarehouseManagment.Application
                 .AsImplementedInterfaces();
 
             var config = new TypeAdapterConfig();
+            config.Scan(typeof(IApplicationAssemblyMarker).Assembly);
 
             builder.RegisterInstance(config)
                 .AsSelf()
