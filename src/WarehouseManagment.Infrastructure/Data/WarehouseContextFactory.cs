@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
-    public class WarehouseContextFactory : IDesignTimeDbContextFactory<WarehouseContext>
+    public sealed class WarehouseContextFactory : IDesignTimeDbContextFactory<WarehouseContext>
     {
         public WarehouseContext CreateDbContext(string[] args)
         {
@@ -14,7 +14,7 @@ namespace WarehouseManagment.Infrastructure.Data
                 .Build();
 
             DbContextOptionsBuilder<WarehouseContext> builder = new DbContextOptionsBuilder<WarehouseContext>();
-            builder.UseNpgsql(configuration.GetConnectionString("WarehouseDatabase"));
+            builder.UseSqlServer(configuration.GetConnectionString("WarehouseDatabase"));
 
             return new WarehouseContext(builder.Options);
         }

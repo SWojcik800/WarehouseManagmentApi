@@ -3,9 +3,9 @@
     /// <summary>
     /// Application wide used exception type
     /// </summary>
-    public class AppAxceptionBase : Exception
+    public class ApplicationException : Exception
     {
-        public AppAxceptionBase(string? message) : base(message)
+        public ApplicationException(string? message) : base(message)
         {
         }
     }
