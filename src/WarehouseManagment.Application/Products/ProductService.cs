@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using WarehouseManagment.Application.Products.Dtos;
 using WarehouseManagment.Core.Products;
+using WarehouseManagment.Core.Products.Queries;
 
 namespace WarehouseManagment.Application.Products
 {
@@ -15,10 +16,9 @@ namespace WarehouseManagment.Application.Products
             _mapper = mapper;
         }
 
-        public async Task<List<ProductDto>> GetAll()
+        public async Task<List<ProductDto>> GetAll(GetPaginatedProductListQuery query)
         {
-            //TODO Add filters
-            var products = await _productRepository.GetAll();
+            var products = await _productRepository.GetAll(query);
             var dtos = _mapper.Map<List<ProductDto>>(products);
 
             return dtos;

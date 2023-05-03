@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WarehouseManagment.Application.Products;
 using WarehouseManagment.Application.Products.Dtos;
+using WarehouseManagment.Core.Products.Queries;
 
 namespace WarehouseManagment.Api.Products
 {
@@ -17,8 +18,8 @@ namespace WarehouseManagment.Api.Products
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-            => Ok(await _productService.GetAll());
+        public async Task<IActionResult> GetAll([FromQuery]GetPaginatedProductListQuery query)
+            => Ok(await _productService.GetAll(query));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
