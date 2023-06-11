@@ -1,4 +1,4 @@
-﻿using WarehouseManagment.Core.Exceptions;
+﻿using WarehouseManagment.Common.Exceptions;
 
 namespace WarehouseManagment.Core.Products
 {
@@ -8,7 +8,7 @@ namespace WarehouseManagment.Core.Products
         public ProductDescription(string value)
         {
             if (string.IsNullOrEmpty(value))
-                throw new DomainException("Cannot add product with empty description");
+                throw new ValidationException("Cannot add product with empty description");
 
             Value = value;
         }

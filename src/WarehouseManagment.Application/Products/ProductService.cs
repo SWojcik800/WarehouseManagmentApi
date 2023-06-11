@@ -1,5 +1,9 @@
 ﻿using MapsterMapper;
+using OneOf;
+using OneOf.Types;
 using WarehouseManagment.Application.Products.Dtos;
+using WarehouseManagment.Common.Errors;
+using WarehouseManagment.Common.Exceptions;
 using WarehouseManagment.Core.Products;
 using WarehouseManagment.Core.Products.Queries;
 
@@ -24,44 +28,75 @@ namespace WarehouseManagment.Application.Products
             return dtos;
         }
 
-        public async Task<ProductDto> GetById(long id)
+        public async Task<OneOf<ProductDto, NotFound>> GetById(long id)
         {
-            var products = await _productRepository.GetById(id);
-            var dto = _mapper.Map<ProductDto>(products);
+            var productOrNotFound = await _productRepository.GetById(id);
 
-            return dto;
+            return productOrNotFound.Match<OneOf<ProductDto, NotFound>>(
+                product => _mapper.Map<ProductDto>(product),
+                notFound => notFound
+                );
         }
 
-        public async Task Create(CreateProductDto dto)
+        public async Task<OneOf<Yes, ValidationError>> Create(CreateProductDto dto)
         {
-            var newProduct = Product.Create(dto.Name, dto.Description, dto.Manufacturer);
+            try
+            {
+                var newProduct = Product.Create(dto.Name, dto.Description, dto.Manufacturer);
 
-            await _productRepository.Add(newProduct);
-            await _productRepository.SaveChanges();
+                await _productRepository.Add(newProduct);
+                await _productRepository.SaveChanges();
+                return new Yes();
+            }
+            catch (ValidationException ex)
+            {
+                return new ValidationError(ex.Message);
+            }
         }
 
-        public async Task Update(UpdateProductDto dto)
+        public async Task<OneOf<long, NotFound, ValidationError>> Update(UpdateProductDto dto)
         {
-            var product = await _productRepository.GetById(dto.Id);
+            var productOrNotFound = await _productRepository.GetById(dto.Id);
 
-            if (!string.IsNullOrEmpty(dto.Name))
-                product.Name = dto.Name;
+            if (productOrNotFound.IsT1)
+                return productOrNotFound.AsT1;
 
-            if(!string.IsNullOrEmpty(dto.Description))
-                product.Description = dto.Description;
+            var product = productOrNotFound.AsT0;
 
-            if (!string.IsNullOrEmpty(dto.Manufacturer))
-                product.Manufacturer = dto.Manufacturer;
+            try
+            {
+                if (!string.IsNullOrEmpty(dto.Name))
+                    product.Name = dto.Name;
+
+                if (!string.IsNullOrEmpty(dto.Description))
+                    product.Description = dto.Description;
+
+                if (!string.IsNullOrEmpty(dto.Manufacturer))
+                    product.Manufacturer = dto.Manufacturer;
+            }
+            catch (ValidationException e)
+            {
+                return new ValidationError(e.Message, e.ErrorCode);                
+            }
+            
 
             await _productRepository.SaveChanges();
+            return product.Id;
         }
 
-        public async Task Delete(long id)
+        public async Task<OneOf<long, NotFound>> Delete(long id)
         {
-            var product = await _productRepository.GetById(id);
-            product.Delete();
+            var productOrNotFound = await _productRepository.GetById(id);
 
-            await _productRepository.SaveChanges();
+            if(productOrNotFound.IsT0)
+            {
+                var product = productOrNotFound.AsT0;
+                product.Delete();
+                await _productRepository.SaveChanges();
+                return product.Id;
+            }
+
+            return productOrNotFound.AsT1;            
         }
 
     }

@@ -23,19 +23,48 @@ namespace WarehouseManagment.Api.Products
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
-            => Ok(await _productService.GetById(id));
+        {
+            var result = await _productService.GetById(id);
+
+            return result.Match<IActionResult>(
+                        productDto => Ok(productDto),
+                        notFound => NotFound(id)
+                        );
+        }
 
         [HttpPost]
-        public async Task Create(CreateProductDto dto)
-            => await _productService.Create(dto);        
+        public async Task<IActionResult> Create(CreateProductDto dto)
+        {
+            var result = await _productService.Create(dto);
+
+            return result.Match<IActionResult>(
+                    yes => Ok(),
+                    validationError => ValidationProblem(validationError.errorMessage)
+                    );
+        }
 
         [HttpPatch]
-        public async Task Update(UpdateProductDto dto)
-            => await _productService.Update(dto);        
+        public async Task<IActionResult> Update(UpdateProductDto dto)
+        {
+            var result = await _productService.Update(dto);
+
+            return result.Match<IActionResult>(
+                    id => Ok(id),
+                    notFound => NotFound(dto.Id),
+                    validationError => ValidationProblem(validationError.errorMessage)
+                    );
+        }                 
 
         [HttpDelete]
-        public async Task Delete(long id)
-            => await _productService.Delete(id);
+        public async Task<IActionResult> Delete(long id)
+        {
+            var result = await _productService.Delete(id);
+
+            return result.Match<IActionResult>(
+                    id => Ok(id),
+                    notFound => NotFound(id)
+                    );
+        }
         
     }
 }

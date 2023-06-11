@@ -1,14 +1,17 @@
-﻿using WarehouseManagment.Application.Products.Dtos;
+﻿using OneOf;
+using OneOf.Types;
+using WarehouseManagment.Application.Products.Dtos;
+using WarehouseManagment.Common.Errors;
 using WarehouseManagment.Core.Products.Queries;
 
 namespace WarehouseManagment.Application.Products
 {
     public interface IProductService
     {
-        Task Create(CreateProductDto dto);
-        Task Delete(long id);
+        Task<OneOf<Yes, ValidationError>> Create(CreateProductDto dto);
+        Task<OneOf<long, NotFound>> Delete(long id);
         Task<List<ProductDto>> GetAll(GetPaginatedProductListQuery query);
-        Task<ProductDto> GetById(long id);
-        Task Update(UpdateProductDto dto);
+        Task<OneOf<ProductDto, NotFound>> GetById(long id);
+        Task<OneOf<long, NotFound, ValidationError>> Update(UpdateProductDto dto);
     }
 }

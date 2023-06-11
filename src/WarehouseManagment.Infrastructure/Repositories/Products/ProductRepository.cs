@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OneOf;
+using OneOf.Types;
 using WarehouseManagment.Common.Extensions;
-using WarehouseManagment.Core.Exceptions;
 using WarehouseManagment.Core.Products;
 using WarehouseManagment.Core.Products.Queries;
 using WarehouseManagment.Infrastructure.Data;
@@ -29,12 +30,12 @@ namespace WarehouseManagment.Infrastructure.Repositories.Products
             return entities;
         }
 
-        public async Task<Product> GetById(long id)
+        public async Task<OneOf<Product, NotFound>> GetById(long id)
         {
             var entity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity is null)
-                throw new NotFoundException("Product", id);
+                return new NotFound();
 
             return entity;
         }

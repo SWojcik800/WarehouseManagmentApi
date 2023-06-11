@@ -1,4 +1,6 @@
-﻿using WarehouseManagment.Core.Products.Queries;
+﻿using OneOf;
+using OneOf.Types;
+using WarehouseManagment.Core.Products.Queries;
 
 namespace WarehouseManagment.Core.Products
 {
@@ -7,6 +9,6 @@ namespace WarehouseManagment.Core.Products
         Task<List<Product>> GetAll(GetPaginatedProductListQuery query);
         Task Add(Product product);
         Task<int> SaveChanges();
-        Task<Product> GetById(long id);
+        Task<OneOf<Product, NotFound>> GetById(long id);
     }
 }
