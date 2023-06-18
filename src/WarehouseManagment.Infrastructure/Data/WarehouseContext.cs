@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WarehouseManagment.Core.Products;
+using WarehouseManagment.Core.StockLevels.Entities;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
@@ -16,6 +17,7 @@ namespace WarehouseManagment.Infrastructure.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<StockLevel> StockLevels { get; set; }
 
     }
 }
