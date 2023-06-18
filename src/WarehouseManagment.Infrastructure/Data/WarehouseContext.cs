@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WarehouseManagment.Core.Products;
+using WarehouseManagment.Core.StockLevels.Entities;
+using WarehouseManagment.Core.StockLevels.ReadModels;
 
 namespace WarehouseManagment.Infrastructure.Data
 {
@@ -16,6 +18,10 @@ namespace WarehouseManagment.Infrastructure.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<StockLevel> StockLevels { get; set; }
+        public DbSet<StockLevelReadModel> _stockLevelReadModels { get; private set; }
+        public IQueryable<StockLevelReadModel> StockLevelReadModels
+            => _stockLevelReadModels.AsNoTracking().AsQueryable();
 
     }
 }
