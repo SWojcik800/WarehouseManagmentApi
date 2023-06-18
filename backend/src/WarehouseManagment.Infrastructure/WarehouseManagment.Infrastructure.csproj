@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WarehouseManagment.Common\WarehouseManagment.Common.csproj" />
+    <ProjectReference Include="..\Shared\WarehouseManagment.Common\WarehouseManagment.Common.csproj" />
     <ProjectReference Include="..\WarehouseManagment.Core\WarehouseManagment.Core.csproj" />
   </ItemGroup>
 

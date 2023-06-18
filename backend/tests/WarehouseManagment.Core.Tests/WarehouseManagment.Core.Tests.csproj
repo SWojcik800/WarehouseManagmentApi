@@ -21,11 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\WarehouseManagment.Core\WarehouseManagment.Core.csproj" />
+    <Folder Include="Shipment\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shipment\" />
+    <ProjectReference Include="..\..\src\WarehouseManagment.Core\WarehouseManagment.Core.csproj" />
   </ItemGroup>
 
 </Project>

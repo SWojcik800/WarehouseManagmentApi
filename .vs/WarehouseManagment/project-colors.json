@@ -1,0 +1,51 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f87d2ea1-e2f8-4e2b-b419-b3022b4565a1": {
+      "ProjectGuid": "f87d2ea1-e2f8-4e2b-b419-b3022b4565a1",
+      "DisplayName": "WarehouseManagment.Web",
+      "ColorIndex": 0
+    },
+    "8ec71e06-7743-492a-9207-7c4c03b1b318": {
+      "ProjectGuid": "8ec71e06-7743-492a-9207-7c4c03b1b318",
+      "DisplayName": "WarehouseManagment.Infrastructure",
+      "ColorIndex": 1
+    },
+    "0c55ac64-2295-4648-8ad6-dc7e6c161a7d": {
+      "ProjectGuid": "0c55ac64-2295-4648-8ad6-dc7e6c161a7d",
+      "DisplayName": "WarehouseManagment.Core",
+      "ColorIndex": 2
+    },
+    "10a9abb5-909e-43f2-baff-37aab0d9cc82": {
+      "ProjectGuid": "10a9abb5-909e-43f2-baff-37aab0d9cc82",
+      "DisplayName": "WarehouseManagment.Api",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "ef779232-fcd8-4251-90ee-39c502b55b9a": {
+      "ProjectGuid": "ef779232-fcd8-4251-90ee-39c502b55b9a",
+      "DisplayName": "WarehouseManagment.Application",
+      "ColorIndex": 4
+    },
+    "6dd4c487-b921-4008-bea8-413553277bf7": {
+      "ProjectGuid": "6dd4c487-b921-4008-bea8-413553277bf7",
+      "DisplayName": "WarehouseManagment.Shared",
+      "ColorIndex": 5
+    },
+    "49933123-3cca-47fd-8c7d-201c01df896c": {
+      "ProjectGuid": "49933123-3cca-47fd-8c7d-201c01df896c",
+      "DisplayName": "WarehouseManagment.Core.Tests",
+      "ColorIndex": 6
+    },
+    "55612e3b-91cb-4e02-ae68-51ffb2559307": {
+      "ProjectGuid": "55612e3b-91cb-4e02-ae68-51ffb2559307",
+      "DisplayName": "WarehouseManagment.Common",
+      "ColorIndex": 7
+    }
+  },
+  "NextColorIndex": 8
+}

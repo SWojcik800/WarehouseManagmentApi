@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WarehouseManagment.Common\WarehouseManagment.Common.csproj" />
+    <ProjectReference Include="..\Shared\WarehouseManagment.Common\WarehouseManagment.Common.csproj" />
   </ItemGroup>
 
 </Project>
