@@ -16,7 +16,7 @@ namespace WarehouseManagment.Infrastructure.Migrations
                 select p.Id as ProductId,
                 p.Name as ProductName,
                 p.Manufacturer as ProductManufacturer,
-                coalesce(slevels.Count, 0) as Count
+                coalesce(slevels.Count, 0) as ProductsInStock
                 from Products p
                 left join StockLevels slevels on slevels.ProductId = p.Id
                 where p.isDeleted = 0

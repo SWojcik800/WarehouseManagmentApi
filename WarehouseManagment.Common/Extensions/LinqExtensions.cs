@@ -9,7 +9,7 @@ namespace WarehouseManagment.Common.Extensions
             ? collection.Where(predicate)
             : collection;
 
-        public static IQueryable<T> AddFilterIfNotNullOrEmpty<T>(this IQueryable<T> collection, string property, Expression<Func<T, bool>> predicate)
+        public static IQueryable<T> AddFilterIfNotNullOrEmpty<T>(this IQueryable<T> collection, string? property, Expression<Func<T, bool>> predicate)
             => !string.IsNullOrEmpty(property)
             ? collection.Where(predicate)
             : collection;

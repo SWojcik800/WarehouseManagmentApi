@@ -8,7 +8,7 @@ namespace WarehouseManagment.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<StockLevelReadModel> builder)
         {
-            builder.ToView("vw_StockLevelReadModels");
+            builder.HasNoKey().ToView("vw_StockLevelReadModels");
         }
     }
 }

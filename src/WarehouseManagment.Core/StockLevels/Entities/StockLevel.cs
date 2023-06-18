@@ -22,9 +22,8 @@ namespace WarehouseManagment.Core.StockLevels.Entities
         public long ProductId { get; private set; }
         public StockLevelCount Count { get; private set; }
 
-        public StockLevelCount Increase(long increaseBy)
-            => Count += increaseBy;
-        public StockLevelCount Decrease(long decreaseBy)
-            => Count -= decreaseBy;
+        public StockLevelCount ChangeCount(StockLevelCount stockLevelCount)
+            => Count = stockLevelCount;        
+
     }
 }

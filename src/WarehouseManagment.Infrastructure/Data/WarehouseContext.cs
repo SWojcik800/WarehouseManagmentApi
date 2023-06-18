@@ -19,9 +19,9 @@ namespace WarehouseManagment.Infrastructure.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<StockLevel> StockLevels { get; set; }
-        private DbSet<StockLevelReadModel> _stockLevelReadModels;
+        public DbSet<StockLevelReadModel> _stockLevelReadModels { get; private set; }
         public IQueryable<StockLevelReadModel> StockLevelReadModels
-            => _stockLevelReadModels.AsNoTracking();
+            => _stockLevelReadModels.AsNoTracking().AsQueryable();
 
     }
 }
