@@ -13,5 +13,6 @@ namespace WarehouseManagment.Application.Products
         Task<List<ProductDto>> GetAll(GetPaginatedProductListQuery query);
         Task<OneOf<ProductDto, NotFound>> GetById(long id);
         Task<OneOf<long, NotFound, ValidationError>> Update(UpdateProductDto dto);
+        Task<List<ProductDto>> GetAllList();
     }
 }

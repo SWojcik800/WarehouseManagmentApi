@@ -30,6 +30,9 @@ namespace WarehouseManagment.Infrastructure.Repositories.Products
             return entities;
         }
 
+        public async Task<List<Product>> GetAllList()
+            => await _context.Products.ToListAsync();
+
         public async Task<OneOf<Product, NotFound>> GetById(long id)
         {
             var entity = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
@@ -47,7 +50,5 @@ namespace WarehouseManagment.Infrastructure.Repositories.Products
 
         public async Task<int> SaveChanges()
             => await _context.SaveChangesAsync();
-
-        
     }
 }

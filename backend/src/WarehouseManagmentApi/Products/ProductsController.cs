@@ -21,6 +21,10 @@ namespace WarehouseManagment.Api.Products
         public async Task<IActionResult> GetAll([FromQuery]GetPaginatedProductListQuery query)
             => Ok(await _productService.GetAll(query));
 
+        [HttpGet("GetAllList")]
+        public async Task<IActionResult> GetAllList()
+            => Ok(await _productService.GetAllList());
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {

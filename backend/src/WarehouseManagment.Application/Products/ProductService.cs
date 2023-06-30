@@ -20,6 +20,14 @@ namespace WarehouseManagment.Application.Products
             _mapper = mapper;
         }
 
+        public async Task<List<ProductDto>> GetAllList()
+        {
+            var products = await _productRepository.GetAllList();
+            var dtos = _mapper.Map<List<ProductDto>>(products);
+
+            return dtos;
+        }
+
         public async Task<List<ProductDto>> GetAll(GetPaginatedProductListQuery query)
         {
             var products = await _productRepository.GetAll(query);
