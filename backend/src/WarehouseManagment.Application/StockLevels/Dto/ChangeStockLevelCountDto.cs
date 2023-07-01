@@ -3,6 +3,6 @@
     public sealed class ChangeStockLevelCountDto
     {
         public long ProductId { get; set; }
-        public long Count { get; set; }
+        public long ProductsInStock { get; set; }
     }
 }

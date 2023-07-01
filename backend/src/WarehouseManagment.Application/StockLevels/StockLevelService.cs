@@ -50,7 +50,7 @@ namespace WarehouseManagment.Application.StockLevels
                     return new NotFound();
              
                 var updatedStockLevel = stockLevel.AsT0;
-                updatedStockLevel.ChangeCount(changeStockLevelCountDto.Count);
+                updatedStockLevel.ChangeCount(changeStockLevelCountDto.ProductsInStock);
                 var updatedStockLevelId = await _stockLevelRepository.Save(updatedStockLevel);
                 return updatedStockLevel.ProductId;                        
 

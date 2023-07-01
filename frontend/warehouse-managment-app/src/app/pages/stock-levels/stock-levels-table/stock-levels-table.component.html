@@ -1,12 +1,15 @@
 
 <div class="table-container">
+    <button mat-mini-fab color="primary" class="add-btn" (click)="dialog.open(createDialog)">
+        <mat-icon>add</mat-icon>
+    </button>
     <app-custom-table [getDataFunc]="getData" [getItemsFunc]="getItemsFunc" [getItemsCountFunc]="getTotalCountFunc" [serverSide]="true" [pageSizes]="[10,25,50]">
       <app-column-defs>
         <app-column fieldName="productId" header="Id"></app-column>
         <app-column fieldName="productName" header="Name"></app-column>
         <app-column fieldName="productsInStock" header="In Stock"></app-column>
         <app-column fieldName="productManufacturer" header="Manufacturer"></app-column>
-         <app-column fieldName="actions" header="Actions" [template]="actionsTemplate"></app-column> 
+        <app-column fieldName="actions" header="Actions" [template]="actionsTemplate"></app-column> 
       </app-column-defs>
 
       <ng-template #actionsTemplate let-row>
@@ -14,12 +17,59 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="actionTriggered(row)">Item 1</button>
-          <button mat-menu-item>Item 2</button>
+          <button mat-menu-item (click)="dialog.open(detailsDialog, {
+            data: row
+        })">Details</button>
+          <button mat-menu-item (click)="dialog.open(updateDialog, {
+            data: row
+        })">Update</button>
         </mat-menu>
       </ng-template>
 
     </app-custom-table>
 
-    
+    <ng-template #createDialog>
+        <h2 mat-dialog-title>Create</h2>
+        <mat-dialog-content>
+            <form [formGroup]="form" #createForm>
+                <formly-form [form]="form" [fields]="fields"></formly-form>
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="dialog-action-btns">
+            <button mat-button mat-dialog-close (click)="form.reset()">Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="form.invalid" [mat-dialog-close]="true"
+                (click)="onSubmit()">Save</button>
+        </mat-dialog-actions>
+    </ng-template>
+
+    <ng-template #updateDialog let-row>
+        <h2 mat-dialog-title>Update</h2>
+        <mat-dialog-content>
+            <form [formGroup]="updateFormGroup" #updateForm>
+                <formly-form [form]="updateFormGroup" [fields]="fields" [model]="row"></formly-form>
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="dialog-action-btns">
+            <button mat-button mat-dialog-close (click)="updateForm.reset()">Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="form.invalid" [mat-dialog-close]="true"
+                (click)="update()">Save</button>
+        </mat-dialog-actions>
+    </ng-template>
+
+    <ng-template #detailsDialog let-row>
+        <h2 mat-dialog-title>Details</h2>
+        <mat-dialog-content>
+            <ul>
+                <li>Id: {{row.id}}</li>
+                <li>Name: {{row.name}}</li>
+                <li>InStock: {{row.productsInStock}}</li>
+            </ul>
+        </mat-dialog-content>
+        <mat-dialog-actions class="dialog-action-btns">
+            <button mat-button mat-dialog-close>Cancel</button>
+        </mat-dialog-actions>
+    </ng-template>
+
     </div>
