@@ -15,6 +15,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(x => x.
 // Add services to the container.
 builder.Services.AddDbContext<WarehouseContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("WarehouseDatabase")));
+builder.Services.AddHttpClient();
 
 builder.Services.AddCors(options => {
     options.AddDefaultPolicy(

@@ -1,0 +1,12 @@
+<div class="table-container">
+
+    <app-custom-table [getDataFunc]="getData" [serverSide]="false" [pageSizes]="[10,25,50]">
+      <app-column-defs>
+        <app-column fieldName="id" header="Id" [sortable]="true"></app-column>
+        <app-column fieldName="userId" header="UserId" [sortable]="true"></app-column>
+        <app-column fieldName="title" header="Title" [sortable]="true"></app-column>
+        <app-column fieldName="completed" header="Completed" [sortable]="true"></app-column>
+      </app-column-defs>
+    </app-custom-table>
+
+</div>

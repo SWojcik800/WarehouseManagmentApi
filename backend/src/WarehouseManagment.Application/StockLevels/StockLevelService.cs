@@ -47,7 +47,12 @@ namespace WarehouseManagment.Application.StockLevels
                 var stockLevel = await _stockLevelRepository.GetByProductId(changeStockLevelCountDto.ProductId);
 
                 if (stockLevel.IsT1)
-                    return new NotFound();
+                { 
+                    var createdStockLevel = StockLevel.Create(changeStockLevelCountDto.ProductId, changeStockLevelCountDto.ProductsInStock);
+                    var createdStockLevelId = await _stockLevelRepository.Save(createdStockLevel);
+                    return createdStockLevelId;
+
+                }
              
                 var updatedStockLevel = stockLevel.AsT0;
                 updatedStockLevel.ChangeCount(changeStockLevelCountDto.ProductsInStock);

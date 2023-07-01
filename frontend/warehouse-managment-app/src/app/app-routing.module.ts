@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'stock-levels',
     loadChildren: () => import('./pages/stock-levels/stock-levels.module').then(m => m.StockLevelsModule)
+  },
+  {
+    path: 'todos',
+    loadChildren: () => import('./pages/todos').then(m => m.TodosModule)
   }
 ];
 
