@@ -4,6 +4,7 @@ using OneOf.Types;
 using WarehouseManagment.Application.Products.Dtos;
 using WarehouseManagment.Common.Errors;
 using WarehouseManagment.Common.Exceptions;
+using WarehouseManagment.Common.Pagination;
 using WarehouseManagment.Core.Products;
 using WarehouseManagment.Core.Products.Queries;
 
@@ -28,12 +29,15 @@ namespace WarehouseManagment.Application.Products
             return dtos;
         }
 
-        public async Task<List<ProductDto>> GetAll(GetPaginatedProductListQuery query)
+        public async Task<PaginatedResult<ProductDto>> GetAll(GetPaginatedProductListQuery query)
         {
-            var products = await _productRepository.GetAll(query);
-            var dtos = _mapper.Map<List<ProductDto>>(products);
+            var paginatedProducts = await _productRepository.GetAll(query);
 
-            return dtos;
+            return new PaginatedResult<ProductDto>
+            {
+                Items = _mapper.Map<List<ProductDto>>(paginatedProducts.Items),
+                TotalCount = paginatedProducts.TotalCount
+            };
         }
 
         public async Task<OneOf<ProductDto, NotFound>> GetById(long id)

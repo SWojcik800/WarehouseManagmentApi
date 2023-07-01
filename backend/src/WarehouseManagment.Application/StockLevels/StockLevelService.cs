@@ -3,6 +3,7 @@ using OneOf.Types;
 using WarehouseManagment.Application.StockLevels.Dto;
 using WarehouseManagment.Common.Errors;
 using WarehouseManagment.Common.Exceptions;
+using WarehouseManagment.Common.Pagination;
 using WarehouseManagment.Core.StockLevels.Contracts;
 using WarehouseManagment.Core.StockLevels.Entities;
 using WarehouseManagment.Core.StockLevels.Queries;
@@ -19,7 +20,7 @@ namespace WarehouseManagment.Application.StockLevels
             _stockLevelRepository = stockLevelRepository;
         }
 
-        public async Task<List<StockLevelReadModel>> GetAll(GetPaginatedStockLevelListQuery query)
+        public async Task<PaginatedResult<StockLevelReadModel>> GetAll(GetPaginatedStockLevelListQuery query)
             => await _stockLevelRepository.GetAllReadModels(query); 
         
         public async Task<OneOf<StockLevelReadModel, NotFound>> GetByProductId(long productId)        

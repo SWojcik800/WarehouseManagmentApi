@@ -2,6 +2,7 @@
 using OneOf;
 using OneOf.Types;
 using WarehouseManagment.Common.Extensions;
+using WarehouseManagment.Common.Pagination;
 using WarehouseManagment.Core.StockLevels.Contracts;
 using WarehouseManagment.Core.StockLevels.Entities;
 using WarehouseManagment.Core.StockLevels.Queries;
@@ -19,14 +20,20 @@ namespace WarehouseManagment.Infrastructure.Repositories.StockLevels
             _context = context;
         }
 
-        public async Task<List<StockLevelReadModel>> GetAllReadModels(GetPaginatedStockLevelListQuery query)
+        public async Task<PaginatedResult<StockLevelReadModel>> GetAllReadModels(GetPaginatedStockLevelListQuery query)
         {
-            return await _context.StockLevelReadModels                
+            var baseQuery = _context.StockLevelReadModels
                 .AddFilterIfNotNullOrEmpty(query.ProductName, p => p.ProductName.Contains(query.ProductName))
-                .AddFilterIfNotNullOrEmpty(query.ProductManufacturer, p => p.ProductManufacturer.Contains(query.ProductManufacturer))
+                .AddFilterIfNotNullOrEmpty(query.ProductManufacturer, p => p.ProductManufacturer.Contains(query.ProductManufacturer));
+
+            var stockLevels = await baseQuery
                 .Skip(query.Offset)
                 .Take(query.Limit)
                 .ToListAsync();
+
+            var totalCount = await baseQuery.CountAsync();
+
+            return new PaginatedResult<StockLevelReadModel>(stockLevels, totalCount);
         }
 
         public async Task<OneOf<StockLevelReadModel, NotFound>> GetReadModelByProductId(long productId)
