@@ -1,0 +1,25 @@
+
+<div class="table-container">
+    <app-custom-table [getDataFunc]="getData" [getItemsFunc]="getItemsFunc" [getItemsCountFunc]="getTotalCountFunc" [serverSide]="true" [pageSizes]="[10,25,50]">
+      <app-column-defs>
+        <app-column fieldName="productId" header="Id"></app-column>
+        <app-column fieldName="productName" header="Name"></app-column>
+        <app-column fieldName="productsInStock" header="In Stock"></app-column>
+        <app-column fieldName="productManufacturer" header="Manufacturer"></app-column>
+         <app-column fieldName="actions" header="Actions" [template]="actionsTemplate"></app-column> 
+      </app-column-defs>
+
+      <ng-template #actionsTemplate let-row>
+        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="actionTriggered(row)">Item 1</button>
+          <button mat-menu-item>Item 2</button>
+        </mat-menu>
+      </ng-template>
+
+    </app-custom-table>
+
+    
+    </div>
